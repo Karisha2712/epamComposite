@@ -12,21 +12,21 @@ import java.util.EnumSet;
 import static edu.radyuk.compositetask.entity.InformationUnitType.LETTER;
 import static edu.radyuk.compositetask.entity.InformationUnitType.PUNCTUATION_SYMBOL;
 
-public class SymbolFromText implements InformationUnit {
+public class SymbolNode implements InformationUnit {
     private static final Logger logger = LogManager.getLogger();
     private static final String IMPOSSIBLE_OPERATION_MESSAGE = "Impossible operation";
     private InformationUnitType type;
     private char symbol;
 
-    public SymbolFromText() {
+    public SymbolNode() {
     }
 
-    public SymbolFromText(char symbolFromText, InformationUnitType type) throws TextException {
+    public SymbolNode(char symbol, InformationUnitType type) throws TextException {
         EnumSet<InformationUnitType> informationUnitTypes = EnumSet.range(LETTER, PUNCTUATION_SYMBOL);
         if (!informationUnitTypes.contains(type)) {
             throw new TextException("Invalid type");
         }
-        this.symbol = symbolFromText;
+        this.symbol = symbol;
         this.type = type;
     }
 
@@ -67,9 +67,9 @@ public class SymbolFromText implements InformationUnit {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SymbolFromText symbolFromText = (SymbolFromText) o;
-        return this.symbol == symbolFromText.symbol
-                && type == symbolFromText.type;
+        SymbolNode symbolNode = (SymbolNode) o;
+        return this.symbol == symbolNode.symbol
+                && type == symbolNode.type;
     }
 
     @Override
