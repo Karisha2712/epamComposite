@@ -1,9 +1,9 @@
 package edu.radyuk.compositetask.entity;
 
-public interface InformationUnit {
-    boolean add(InformationUnit informationUnit);
+public abstract class InformationUnit {
+    public abstract boolean add(InformationUnit informationUnit);
 
-    boolean remove(InformationUnit informationUnit);
+    public abstract boolean remove(InformationUnit informationUnit);
 
-    InformationUnitType getType(InformationUnit informationUnit);
+    public abstract InformationUnitType getType(InformationUnit informationUnit);
 }

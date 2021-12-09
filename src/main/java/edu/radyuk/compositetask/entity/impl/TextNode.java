@@ -14,7 +14,7 @@ import java.util.Objects;
 import static edu.radyuk.compositetask.entity.InformationUnitType.TEXT;
 import static edu.radyuk.compositetask.entity.InformationUnitType.WORD;
 
-public class TextNode implements InformationUnit {
+public class TextNode extends InformationUnit {
     private static final Logger logger = LogManager.getLogger();
     private final List<InformationUnit> childNodes = new ArrayList<>();
     private InformationUnitType type;
@@ -25,7 +25,7 @@ public class TextNode implements InformationUnit {
 
     public TextNode(String nodeText, InformationUnitType type) throws TextException {
         EnumSet<InformationUnitType> informationUnitTypes = EnumSet.range(TEXT, WORD);
-        if (informationUnitTypes.contains(type)) {
+        if (!informationUnitTypes.contains(type)) {
             throw new TextException("Invalid type");
         }
         this.type = type;

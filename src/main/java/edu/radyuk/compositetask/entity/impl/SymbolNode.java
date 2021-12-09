@@ -12,7 +12,7 @@ import java.util.EnumSet;
 import static edu.radyuk.compositetask.entity.InformationUnitType.LETTER;
 import static edu.radyuk.compositetask.entity.InformationUnitType.PUNCTUATION_SYMBOL;
 
-public class SymbolNode implements InformationUnit {
+public class SymbolNode extends InformationUnit {
     private static final Logger logger = LogManager.getLogger();
     private static final String IMPOSSIBLE_OPERATION_MESSAGE = "Impossible operation";
     private InformationUnitType type;
