@@ -1,7 +1,5 @@
-package edu.radyuk.compositetask.entity.impl;
+package edu.radyuk.compositetask.entity;
 
-import edu.radyuk.compositetask.entity.InformationUnit;
-import edu.radyuk.compositetask.entity.InformationUnitType;
 import edu.radyuk.compositetask.exception.TextException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,24 +14,24 @@ import static edu.radyuk.compositetask.entity.InformationUnitType.WORD;
 
 public class TextNode extends InformationUnit {
     private static final Logger logger = LogManager.getLogger();
+    private static final String TABULATION_FOR_TEXT = "    ";
     private final List<InformationUnit> childNodes = new ArrayList<>();
     private InformationUnitType type;
-    private String text;
 
     public TextNode() {
     }
 
-    public TextNode(String nodeText, InformationUnitType type) throws TextException {
+    public TextNode(InformationUnitType type) throws TextException {
         EnumSet<InformationUnitType> informationUnitTypes = EnumSet.range(TEXT, WORD);
         if (!informationUnitTypes.contains(type)) {
             throw new TextException("Invalid type");
         }
         this.type = type;
-        this.text = nodeText;
     }
 
+    @Override
     public List<InformationUnit> getChildNodes() {
-        return List.copyOf(childNodes);
+        return childNodes;
     }
 
     public InformationUnitType getType() {
@@ -42,14 +40,6 @@ public class TextNode extends InformationUnit {
 
     public void setType(InformationUnitType type) {
         this.type = type;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     @Override
@@ -73,8 +63,7 @@ public class TextNode extends InformationUnit {
         if (o == null || getClass() != o.getClass()) return false;
         TextNode textPart1 = (TextNode) o;
         return Objects.equals(childNodes, textPart1.childNodes)
-                && type == textPart1.type
-                && Objects.equals(text, textPart1.text);
+                && type == textPart1.type;
     }
 
     @Override
@@ -82,18 +71,20 @@ public class TextNode extends InformationUnit {
         int result = 1;
         result += result * 31 + childNodes.hashCode();
         result += result * 31 + type.hashCode();
-        result += result * 31 + text.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("TextPart{");
-        sb.append("informationUnits=").append(childNodes);
-        sb.append(", type=").append(type);
-        sb.append(", textPart='").append(text).append('\'');
-        sb.append('}');
-        return sb.toString();
+        StringBuilder builder = new StringBuilder();
+        String delimiter = type.getDelimiter();
+        if (this.type == TEXT) {
+            builder.append(TABULATION_FOR_TEXT);
+        }
+        for (InformationUnit textNode : this.getChildNodes()) {
+            builder.append(textNode.toString()).append(delimiter);
+        }
+        return builder.toString();
     }
 }
 

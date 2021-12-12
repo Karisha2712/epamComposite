@@ -1,4 +1,4 @@
-package edu.radyuk.compositetask;
+package edu.radyuk.compositetask.parser;
 
 import edu.radyuk.compositetask.exception.TextException;
 import edu.radyuk.compositetask.parser.impl.TextParser;

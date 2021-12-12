@@ -1,8 +1,8 @@
 package edu.radyuk.compositetask.parser.impl;
 
 import edu.radyuk.compositetask.entity.InformationUnit;
-import edu.radyuk.compositetask.entity.impl.SymbolNode;
-import edu.radyuk.compositetask.entity.impl.TextNode;
+import edu.radyuk.compositetask.entity.SymbolNode;
+import edu.radyuk.compositetask.entity.TextNode;
 import edu.radyuk.compositetask.exception.TextException;
 import edu.radyuk.compositetask.parser.InformationParser;
 import org.apache.logging.log4j.Level;
@@ -27,7 +27,7 @@ public class WordParser implements InformationParser {
     @Override
     public InformationUnit parse(String text) throws TextException {
         String[] symbols = text.split(REGEXP_FOR_WORD_PARSING);
-        InformationUnit textNode = new TextNode(text, WORD);
+        InformationUnit textNode = new TextNode(WORD);
         for (var symbol : symbols) {
             SymbolNode symbolNode = new SymbolNode();
             symbolNode.setSymbol(symbol.charAt(0));

@@ -1,7 +1,7 @@
 package edu.radyuk.compositetask.parser.impl;
 
 import edu.radyuk.compositetask.entity.InformationUnit;
-import edu.radyuk.compositetask.entity.impl.TextNode;
+import edu.radyuk.compositetask.entity.TextNode;
 import edu.radyuk.compositetask.exception.TextException;
 import edu.radyuk.compositetask.parser.InformationParser;
 import org.apache.logging.log4j.Level;
@@ -26,7 +26,7 @@ public class ParagraphParser implements InformationParser {
     @Override
     public InformationUnit parse(String text) throws TextException {
         String[] sentences = text.split(REGEXP_FOR_PARAGRAPH_PARSING);
-        InformationUnit textNode = new TextNode(text, PARAGRAPH);
+        InformationUnit textNode = new TextNode(PARAGRAPH);
         for (var sentence : sentences) {
             InformationUnit sentenceNode = sentenceParser.parse(sentence);
             textNode.add(sentenceNode);

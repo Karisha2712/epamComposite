@@ -1,20 +1,19 @@
-package edu.radyuk.compositetask.entity.impl;
+package edu.radyuk.compositetask.entity;
 
-import edu.radyuk.compositetask.entity.InformationUnit;
-import edu.radyuk.compositetask.entity.InformationUnitType;
 import edu.radyuk.compositetask.exception.TextException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 
 import static edu.radyuk.compositetask.entity.InformationUnitType.LETTER;
 import static edu.radyuk.compositetask.entity.InformationUnitType.PUNCTUATION_SYMBOL;
 
 public class SymbolNode extends InformationUnit {
     private static final Logger logger = LogManager.getLogger();
-    private static final String IMPOSSIBLE_OPERATION_MESSAGE = "Impossible operation";
     private InformationUnitType type;
     private char symbol;
 
@@ -47,14 +46,21 @@ public class SymbolNode extends InformationUnit {
     }
 
     @Override
+    public List<InformationUnit> getChildNodes() {
+        List<InformationUnit> childNodes = new ArrayList<>();
+        logger.log(Level.ERROR, "Impossible operation");
+        return childNodes;
+    }
+
+    @Override
     public boolean add(InformationUnit informationUnit) {
-        logger.log(Level.ERROR, IMPOSSIBLE_OPERATION_MESSAGE);
+        logger.log(Level.ERROR, "Impossible operation");
         return false;
     }
 
     @Override
     public boolean remove(InformationUnit informationUnit) {
-        logger.log(Level.ERROR, IMPOSSIBLE_OPERATION_MESSAGE);
+        logger.log(Level.ERROR, "Impossible operation");
         return false;
     }
 
@@ -82,10 +88,6 @@ public class SymbolNode extends InformationUnit {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("SymbolFromText{");
-        sb.append("type=").append(type);
-        sb.append(", symbol=").append(symbol);
-        sb.append('}');
-        return sb.toString();
+        return Character.toString(symbol);
     }
 }
