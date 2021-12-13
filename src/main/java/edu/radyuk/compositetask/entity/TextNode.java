@@ -1,8 +1,6 @@
 package edu.radyuk.compositetask.entity;
 
 import edu.radyuk.compositetask.exception.TextException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -13,7 +11,6 @@ import static edu.radyuk.compositetask.entity.InformationUnitType.TEXT;
 import static edu.radyuk.compositetask.entity.InformationUnitType.WORD;
 
 public class TextNode extends InformationUnit {
-    private static final Logger logger = LogManager.getLogger();
     private static final String TABULATION_FOR_TEXT = "    ";
     private final List<InformationUnit> childNodes = new ArrayList<>();
     private InformationUnitType type;
@@ -43,13 +40,13 @@ public class TextNode extends InformationUnit {
     }
 
     @Override
-    public boolean add(InformationUnit informationUnit) {
-        return childNodes.add(informationUnit);
+    public void add(InformationUnit informationUnit) {
+        childNodes.add(informationUnit);
     }
 
     @Override
-    public boolean remove(InformationUnit informationUnit) {
-        return childNodes.remove(informationUnit);
+    public void remove(InformationUnit informationUnit) {
+        childNodes.remove(informationUnit);
     }
 
     @Override

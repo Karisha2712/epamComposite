@@ -15,7 +15,7 @@ public class WordParser implements InformationParser {
     private static final Logger logger = LogManager.getLogger();
     private static final WordParser INSTANCE = new WordParser();
     private static final String REGEXP_FOR_WORD_PARSING = "";
-    private static final String REGEXP_FOR_PUNCTUATION = "[?!.,)(-]|(\\.{3})";
+    private static final String REGEXP_FOR_PUNCTUATION = "-";
 
     private WordParser() {
     }

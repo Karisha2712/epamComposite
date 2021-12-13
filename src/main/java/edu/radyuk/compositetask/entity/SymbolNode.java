@@ -53,15 +53,13 @@ public class SymbolNode extends InformationUnit {
     }
 
     @Override
-    public boolean add(InformationUnit informationUnit) {
+    public void add(InformationUnit informationUnit) {
         logger.log(Level.ERROR, "Impossible operation");
-        return false;
     }
 
     @Override
-    public boolean remove(InformationUnit informationUnit) {
+    public void remove(InformationUnit informationUnit) {
         logger.log(Level.ERROR, "Impossible operation");
-        return false;
     }
 
     @Override

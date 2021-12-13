@@ -85,8 +85,10 @@ public class InformationServiceImpl implements InformationService {
             throw new TextException("Invalid node");
         }
         return (int) textNode.getChildNodes().stream()
-                .flatMap(p1 -> p1.getChildNodes().stream())
-                .flatMap(s1 -> s1.getChildNodes().stream())
+                .flatMap(p -> p.getChildNodes().stream())
+                .flatMap(s -> s.getChildNodes().stream())
+                .flatMap(l -> l.getChildNodes().stream())
+                .filter(l -> l.getType() == WORD)
                 .filter(w -> w.toString().equalsIgnoreCase(word))
                 .count();
     }
@@ -95,6 +97,8 @@ public class InformationServiceImpl implements InformationService {
         List<InformationUnit> consonants = textNode.getChildNodes().stream()
                 .flatMap(p -> p.getChildNodes().stream())
                 .flatMap(s -> s.getChildNodes().stream())
+                .flatMap(l -> l.getChildNodes().stream())
+                .filter(l -> l.getType() == WORD)
                 .flatMap(w -> w.getChildNodes().stream())
                 .filter(l -> l.toString().matches(regexp))
                 .toList();
@@ -103,7 +107,8 @@ public class InformationServiceImpl implements InformationService {
 
     private int receiveMaxLettersNumberInWord(InformationUnit sentence) {
         return sentence.getChildNodes().stream()
-                .filter(node -> node.getType() == WORD)
+                .flatMap(l -> l.getChildNodes().stream())
+                .filter(w -> w.getType() == WORD)
                 .map(node -> node.getChildNodes().size())
                 .max(Integer::compareTo)
                 .orElse(-1);

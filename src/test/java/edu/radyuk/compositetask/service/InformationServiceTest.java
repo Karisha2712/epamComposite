@@ -16,12 +16,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class InformationServiceTest {
+class InformationServiceTest {
     private static InformationUnit textNode;
     private static final InformationServiceImpl informationService = new InformationServiceImpl();
 
     @BeforeAll
-    public static void setUp() throws IOException, TextException {
+    static void setUp() throws IOException, TextException {
         URL fileUrl = InformationServiceTest.class.getClassLoader().getResource("files/text.txt");
         File file = new File(fileUrl.getFile());
         String filePath = file.getAbsolutePath();
@@ -32,38 +32,56 @@ public class InformationServiceTest {
     }
 
     @Test
-    public void ifSortParagraphsBySentenceNumberTest() throws TextException {
+    void ifSortParagraphsBySentenceNumberTestReturnsCorrectObject() throws TextException, IOException {
+        URL fileUrl = InformationServiceTest.class.getClassLoader().getResource("files/sortedParagraphs.txt");
+        File file = new File(fileUrl.getFile());
+        String filePath = file.getAbsolutePath();
+        Path path = Paths.get(filePath);
+        String text = Files.readString(path);
+        TextParser textParser = TextParser.getInstance();
+        InformationUnit expectedNode = textParser.parse(text);
         informationService.sortParagraphsBySentenceNumber(textNode);
-        System.out.println(textNode);
+        Assertions.assertEquals(expectedNode, textNode);
     }
 
     @Test
-    public void ifReceiveMaxLettersNumberInWordTest() throws TextException {
-        List<InformationUnit> sentences = informationService.receiveSentencesWithLongestWord(textNode);
-        System.out.println(sentences);
+    void ifReceiveSentencesWithLongestWordReturnsCorrectSentences() throws TextException {
+        List<InformationUnit> actualSentences = informationService.receiveSentencesWithLongestWord(textNode);
+        String expected = "They teach us to be kind, clever, polite, hardworking, friendly. ";
+        String actual = actualSentences.get(0).toString();
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    public void ifRemoveSentencesWithLessWordsNumber() throws TextException {
-        informationService.removeSentencesWithLessWordsNumber(textNode, 20);
-        System.out.println("[" + textNode + "]");
+    void ifRemoveSentencesWithLessWordsNumberReturnsCorrectNumber() throws TextException {
+        int expected = (int) textNode.getChildNodes().stream()
+                .flatMap(s -> s.getChildNodes().stream())
+                .count() - 5;
+        informationService.removeSentencesWithLessWordsNumber(textNode, 6);
+        int actual = (int) textNode.getChildNodes().stream()
+                .flatMap(s -> s.getChildNodes().stream())
+                .count();
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    public void ifCalculateVowelsNumber() throws TextException {
-        int res = informationService.calculateVowelsNumber(textNode);
-        Assertions.assertEquals(10, res);
+    void ifCalculateVowelsNumberReturnsCorrectNumber() throws TextException {
+        int actual = informationService.calculateVowelsNumber(textNode);
+        int expected = 309;
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    public void ifCalculateConsonantsNumber() throws TextException {
-        int res = informationService.calculateConsonantsNumber(textNode);
-        Assertions.assertEquals(14, res);
+    void ifCalculateConsonantsNumberReturnsCorrectNumber() throws TextException {
+        int actual = informationService.calculateConsonantsNumber(textNode);
+        int expected = 454;
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    public void ifFindSameWords() throws TextException {
-        System.out.println(informationService.findSameWords(textNode, "it"));
-
+    void ifFindSameWordsReturnsCorrectNumber() throws TextException {
+        int actual = informationService.findSameWords(textNode, "with");
+        int expected = 2;
+        Assertions.assertEquals(expected, actual);
     }
 }

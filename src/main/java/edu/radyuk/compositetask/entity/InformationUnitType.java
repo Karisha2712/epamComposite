@@ -4,6 +4,7 @@ public enum InformationUnitType {
     TEXT("\n    "),
     PARAGRAPH(" "),
     SENTENCE(" "),
+    LEXEME(""),
     WORD(""),
     LETTER(""),
     PUNCTUATION_SYMBOL("");

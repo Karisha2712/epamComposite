@@ -4,7 +4,6 @@ import edu.radyuk.compositetask.entity.InformationUnit;
 import edu.radyuk.compositetask.exception.TextException;
 
 import java.util.List;
-import java.util.Map;
 
 public interface InformationService {
     void sortParagraphsBySentenceNumber(InformationUnit textNode) throws TextException;

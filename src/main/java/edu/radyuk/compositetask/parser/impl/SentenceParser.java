@@ -14,7 +14,7 @@ public class SentenceParser implements InformationParser {
     private static final Logger logger = LogManager.getLogger();
     private static final SentenceParser INSTANCE = new SentenceParser();
     private static final String REGEXP_FOR_SENTENCE_PARSING = "\\s+";
-    private final InformationParser wordParser = WordParser.getInstance();
+    private final InformationParser lexemeParser = LexemeParser.getInstance();
 
     private SentenceParser() {
     }
@@ -28,7 +28,7 @@ public class SentenceParser implements InformationParser {
         String[] words = text.split(REGEXP_FOR_SENTENCE_PARSING);
         InformationUnit textNode = new TextNode(SENTENCE);
         for (var word : words) {
-            InformationUnit wordNode = wordParser.parse(word);
+            InformationUnit wordNode = lexemeParser.parse(word);
             textNode.add(wordNode);
         }
         logger.log(Level.INFO, "Sentence parsed successfully");
