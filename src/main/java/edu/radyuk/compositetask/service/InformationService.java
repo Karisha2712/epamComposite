@@ -17,5 +17,5 @@ public interface InformationService {
 
     int calculateConsonantsNumber(InformationUnit textNode) throws TextException;
 
-    Map<InformationUnit, Long> findSameWords(InformationUnit textNode) throws TextException;
+    int findSameWords(InformationUnit textNode, String word) throws TextException;
 }

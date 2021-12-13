@@ -9,9 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static edu.radyuk.compositetask.entity.InformationUnitType.TEXT;
 import static edu.radyuk.compositetask.entity.InformationUnitType.WORD;
@@ -82,18 +80,15 @@ public class InformationServiceImpl implements InformationService {
     }
 
     @Override
-    public Map<InformationUnit, Long> findSameWords(InformationUnit textNode) throws TextException {
+    public int findSameWords(InformationUnit textNode, String word) throws TextException {
         if (textNode.getType() != TEXT) {
             throw new TextException("Invalid node");
         }
-        return textNode.getChildNodes().stream()
+        return (int) textNode.getChildNodes().stream()
                 .flatMap(p1 -> p1.getChildNodes().stream())
                 .flatMap(s1 -> s1.getChildNodes().stream())
-                .collect(Collectors.toMap(w1 -> w1, (w1 -> textNode.getChildNodes().stream()
-                        .flatMap(p2 -> p2.getChildNodes().stream())
-                        .flatMap(s2 -> s2.getChildNodes().stream())
-                        .filter(w2 -> w1.toString().equalsIgnoreCase(w2.toString()))
-                        .count()), (existing, replacement) -> existing));
+                .filter(w -> w.toString().equalsIgnoreCase(word))
+                .count();
     }
 
     private int calculateLettersNumber(InformationUnit textNode, String regexp) {

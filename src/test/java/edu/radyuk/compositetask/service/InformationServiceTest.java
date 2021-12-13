@@ -63,7 +63,7 @@ public class InformationServiceTest {
 
     @Test
     public void ifFindSameWords() throws TextException {
-        System.out.println(informationService.findSameWords(textNode));
+        System.out.println(informationService.findSameWords(textNode, "it"));
 
     }
 }
